@@ -63,7 +63,7 @@ class Head(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
-        B, T, C = x.shape # batch size, sequence length, embedding dimension
+        B, T, C = x.shape # batch_size, sequence length, embedding dimension
         k = self.key(x) # (B, T, head_size)
         q = self.query(x) # (B, T, head_size)
         # compute attention scores
@@ -140,7 +140,7 @@ class GPTLanguageModel(nn.Module):
             torch.nn.init_normal_(module.weight, mean=0.0, std=0.02)
 
     def forward(self, idx, targets=None):
-        B, T = idx.shape # batch size, sequence length
+        B, T = idx.shape # batch_size, sequence length
         tok_emb = self.token_embedding_table(idx) # (B, T, n_embd)
         pos_emb = self.position_embedding_table(torch.arange(T, device=device)) # (T, n_embd)
         x = tok_emb + pos_emb # (B, T, n_embd)
